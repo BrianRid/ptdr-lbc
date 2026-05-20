@@ -12,6 +12,84 @@ export const REGIONS: Record<string, { name: string; departments: { code: string
       { code: "95", name: "Val-d'Oise" },
     ],
   },
+  "32": {
+    name: "Hauts-de-France",
+    departments: [
+      { code: "02", name: "Aisne" },
+      { code: "59", name: "Nord" },
+      { code: "60", name: "Oise" },
+      { code: "62", name: "Pas-de-Calais" },
+      { code: "80", name: "Somme" },
+    ],
+  },
+  "44": {
+    name: "Grand Est",
+    departments: [
+      { code: "08", name: "Ardennes" },
+      { code: "10", name: "Aube" },
+      { code: "51", name: "Marne" },
+      { code: "52", name: "Haute-Marne" },
+      { code: "54", name: "Meurthe-et-Moselle" },
+      { code: "55", name: "Meuse" },
+      { code: "57", name: "Moselle" },
+      { code: "67", name: "Bas-Rhin" },
+      { code: "68", name: "Haut-Rhin" },
+      { code: "88", name: "Vosges" },
+    ],
+  },
+  "28": {
+    name: "Normandie",
+    departments: [
+      { code: "14", name: "Calvados" },
+      { code: "27", name: "Eure" },
+      { code: "50", name: "Manche" },
+      { code: "61", name: "Orne" },
+      { code: "76", name: "Seine-Maritime" },
+    ],
+  },
+  "53": {
+    name: "Bretagne",
+    departments: [
+      { code: "22", name: "Côtes-d'Armor" },
+      { code: "29", name: "Finistère" },
+      { code: "35", name: "Ille-et-Vilaine" },
+      { code: "56", name: "Morbihan" },
+    ],
+  },
+  "52": {
+    name: "Pays de la Loire",
+    departments: [
+      { code: "44", name: "Loire-Atlantique" },
+      { code: "49", name: "Maine-et-Loire" },
+      { code: "53", name: "Mayenne" },
+      { code: "72", name: "Sarthe" },
+      { code: "85", name: "Vendée" },
+    ],
+  },
+  "24": {
+    name: "Centre-Val de Loire",
+    departments: [
+      { code: "18", name: "Cher" },
+      { code: "28", name: "Eure-et-Loir" },
+      { code: "36", name: "Indre" },
+      { code: "37", name: "Indre-et-Loire" },
+      { code: "41", name: "Loir-et-Cher" },
+      { code: "45", name: "Loiret" },
+    ],
+  },
+  "27": {
+    name: "Bourgogne-Franche-Comté",
+    departments: [
+      { code: "21", name: "Côte-d'Or" },
+      { code: "25", name: "Doubs" },
+      { code: "39", name: "Jura" },
+      { code: "58", name: "Nièvre" },
+      { code: "70", name: "Haute-Saône" },
+      { code: "71", name: "Saône-et-Loire" },
+      { code: "89", name: "Yonne" },
+      { code: "90", name: "Territoire de Belfort" },
+    ],
+  },
   "84": {
     name: "Auvergne-Rhône-Alpes",
     departments: [
@@ -47,17 +125,6 @@ export const REGIONS: Record<string, { name: string; departments: { code: string
       { code: "82", name: "Tarn-et-Garonne" },
     ],
   },
-  "93": {
-    name: "Provence-Alpes-Côte d'Azur",
-    departments: [
-      { code: "04", name: "Alpes-de-Haute-Provence" },
-      { code: "05", name: "Hautes-Alpes" },
-      { code: "06", name: "Alpes-Maritimes" },
-      { code: "13", name: "Bouches-du-Rhône" },
-      { code: "83", name: "Var" },
-      { code: "84", name: "Vaucluse" },
-    ],
-  },
   "75": {
     name: "Nouvelle-Aquitaine",
     departments: [
@@ -73,6 +140,24 @@ export const REGIONS: Record<string, { name: string; departments: { code: string
       { code: "79", name: "Deux-Sèvres" },
       { code: "86", name: "Vienne" },
       { code: "87", name: "Haute-Vienne" },
+    ],
+  },
+  "93": {
+    name: "Provence-Alpes-Côte d'Azur",
+    departments: [
+      { code: "04", name: "Alpes-de-Haute-Provence" },
+      { code: "05", name: "Hautes-Alpes" },
+      { code: "06", name: "Alpes-Maritimes" },
+      { code: "13", name: "Bouches-du-Rhône" },
+      { code: "83", name: "Var" },
+      { code: "84", name: "Vaucluse" },
+    ],
+  },
+  "94": {
+    name: "Corse",
+    departments: [
+      { code: "2A", name: "Corse-du-Sud" },
+      { code: "2B", name: "Haute-Corse" },
     ],
   },
 };
