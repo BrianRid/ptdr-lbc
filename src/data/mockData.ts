@@ -1,0 +1,187 @@
+export const REGIONS: Record<string, { name: string; departments: { code: string; name: string }[] }> = {
+  "11": {
+    name: "Île-de-France",
+    departments: [
+      { code: "75", name: "Paris" },
+      { code: "77", name: "Seine-et-Marne" },
+      { code: "78", name: "Yvelines" },
+      { code: "91", name: "Essonne" },
+      { code: "92", name: "Hauts-de-Seine" },
+      { code: "93", name: "Seine-Saint-Denis" },
+      { code: "94", name: "Val-de-Marne" },
+      { code: "95", name: "Val-d'Oise" },
+    ],
+  },
+  "84": {
+    name: "Auvergne-Rhône-Alpes",
+    departments: [
+      { code: "01", name: "Ain" },
+      { code: "03", name: "Allier" },
+      { code: "07", name: "Ardèche" },
+      { code: "15", name: "Cantal" },
+      { code: "26", name: "Drôme" },
+      { code: "38", name: "Isère" },
+      { code: "42", name: "Loire" },
+      { code: "43", name: "Haute-Loire" },
+      { code: "63", name: "Puy-de-Dôme" },
+      { code: "69", name: "Rhône" },
+      { code: "73", name: "Savoie" },
+      { code: "74", name: "Haute-Savoie" },
+    ],
+  },
+  "76": {
+    name: "Occitanie",
+    departments: [
+      { code: "09", name: "Ariège" },
+      { code: "11", name: "Aude" },
+      { code: "12", name: "Aveyron" },
+      { code: "30", name: "Gard" },
+      { code: "31", name: "Haute-Garonne" },
+      { code: "32", name: "Gers" },
+      { code: "34", name: "Hérault" },
+      { code: "46", name: "Lot" },
+      { code: "48", name: "Lozère" },
+      { code: "65", name: "Hautes-Pyrénées" },
+      { code: "66", name: "Pyrénées-Orientales" },
+      { code: "81", name: "Tarn" },
+      { code: "82", name: "Tarn-et-Garonne" },
+    ],
+  },
+  "93": {
+    name: "Provence-Alpes-Côte d'Azur",
+    departments: [
+      { code: "04", name: "Alpes-de-Haute-Provence" },
+      { code: "05", name: "Hautes-Alpes" },
+      { code: "06", name: "Alpes-Maritimes" },
+      { code: "13", name: "Bouches-du-Rhône" },
+      { code: "83", name: "Var" },
+      { code: "84", name: "Vaucluse" },
+    ],
+  },
+  "75": {
+    name: "Nouvelle-Aquitaine",
+    departments: [
+      { code: "16", name: "Charente" },
+      { code: "17", name: "Charente-Maritime" },
+      { code: "19", name: "Corrèze" },
+      { code: "23", name: "Creuse" },
+      { code: "24", name: "Dordogne" },
+      { code: "33", name: "Gironde" },
+      { code: "40", name: "Landes" },
+      { code: "47", name: "Lot-et-Garonne" },
+      { code: "64", name: "Pyrénées-Atlantiques" },
+      { code: "79", name: "Deux-Sèvres" },
+      { code: "86", name: "Vienne" },
+      { code: "87", name: "Haute-Vienne" },
+    ],
+  },
+};
+
+export const CATEGORIES = [
+  { value: "all", label: "Tout immobilier" },
+  { value: "residential", label: "Résidentiel" },
+  { value: "commercial", label: "Commercial" },
+  { value: "terrain", label: "Terrain" },
+  { value: "location", label: "Location" },
+];
+
+export const DATE_RANGES = [
+  { value: "current_week", label: "Semaine en cours" },
+  { value: "last_30", label: "30 derniers jours" },
+  { value: "current_month", label: "Ce mois" },
+  { value: "quarter", label: "Ce trimestre" },
+];
+
+// Seeded PRNG (mulberry32) for deterministic SSR/CSR output
+let _seed = 0x12345678;
+function seededRand(): number {
+  _seed |= 0;
+  _seed = (_seed + 0x6d2b79f5) | 0;
+  let t = Math.imul(_seed ^ (_seed >>> 15), 1 | _seed);
+  t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+  return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+}
+
+function rand(min: number, max: number) {
+  return Math.floor(seededRand() * (max - min + 1)) + min;
+}
+
+export interface DailyData {
+  date: string;
+  apparitions: number;
+  clics: number;
+  favoris: number;
+  messages: number;
+  appels: number;
+}
+
+export interface KpiTotals {
+  apparitions: number;
+  clics: number;
+  favoris: number;
+  messages: number;
+  appels: number;
+}
+
+function generateDailyData(days: number, baseDate: Date): DailyData[] {
+  return Array.from({ length: days }, (_, i) => {
+    const d = new Date(baseDate);
+    d.setDate(d.getDate() - (days - 1 - i));
+    const isWeekend = d.getDay() === 0 || d.getDay() === 6;
+    const multiplier = isWeekend ? 0.4 : 1;
+    return {
+      date: `${String(d.getDate()).padStart(2, "0")}/${String(d.getMonth() + 1).padStart(2, "0")}`,
+      apparitions: Math.round(rand(280000, 380000) * multiplier),
+      clics: Math.round(rand(3000, 4500) * multiplier),
+      favoris: Math.round(rand(90, 150) * multiplier),
+      messages: Math.round(rand(12, 22) * multiplier),
+      appels: Math.round(rand(35, 60) * multiplier),
+    };
+  });
+}
+
+const today = new Date(2026, 4, 20); // May 20 2026
+
+export const MOCK_DATA: Record<string, Record<string, DailyData[]>> = {
+  current_week: {
+    all: generateDailyData(7, today),
+    residential: generateDailyData(7, today),
+    commercial: generateDailyData(7, today),
+    terrain: generateDailyData(7, today),
+    location: generateDailyData(7, today),
+  },
+  last_30: {
+    all: generateDailyData(30, today),
+    residential: generateDailyData(30, today),
+    commercial: generateDailyData(30, today),
+    terrain: generateDailyData(30, today),
+    location: generateDailyData(30, today),
+  },
+  current_month: {
+    all: generateDailyData(20, today),
+    residential: generateDailyData(20, today),
+    commercial: generateDailyData(20, today),
+    terrain: generateDailyData(20, today),
+    location: generateDailyData(20, today),
+  },
+  quarter: {
+    all: generateDailyData(90, today),
+    residential: generateDailyData(90, today),
+    commercial: generateDailyData(90, today),
+    terrain: generateDailyData(90, today),
+    location: generateDailyData(90, today),
+  },
+};
+
+export function computeTotals(data: DailyData[]): KpiTotals {
+  return data.reduce(
+    (acc, d) => ({
+      apparitions: acc.apparitions + d.apparitions,
+      clics: acc.clics + d.clics,
+      favoris: acc.favoris + d.favoris,
+      messages: acc.messages + d.messages,
+      appels: acc.appels + d.appels,
+    }),
+    { apparitions: 0, clics: 0, favoris: 0, messages: 0, appels: 0 }
+  );
+}
