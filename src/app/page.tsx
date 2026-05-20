@@ -11,6 +11,7 @@ export default function Dashboard() {
   const [dateRange, setDateRange] = useState("current_week");
   const [category, setCategory] = useState("all");
   const [selectedDepts, setSelectedDepts] = useState<string[]>([]);
+  const [selectedAdParams, setSelectedAdParams] = useState<string[]>([]);
 
   const data = useMemo(() => {
     return MOCK_DATA[dateRange]?.[category] ?? MOCK_DATA["current_week"]["all"];
@@ -31,9 +32,11 @@ export default function Dashboard() {
             dateRange={dateRange}
             category={category}
             selectedDepts={selectedDepts}
+            selectedAdParams={selectedAdParams}
             onDateChange={setDateRange}
             onCategoryChange={setCategory}
             onDeptsChange={setSelectedDepts}
+            onAdParamsChange={setSelectedAdParams}
           />
 
           <div className="mt-8">

@@ -1,6 +1,6 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import { ChevronUp, ChevronDown, Plus } from "lucide-react";
+import { ChevronUp, ChevronDown } from "lucide-react";
 import { REGIONS } from "@/data/mockData";
 
 interface Props {
@@ -92,22 +92,17 @@ export default function GeoFilter({ selected, onChange }: Props) {
 
   return (
     <div className="relative" ref={containerRef}>
-      <div className="flex items-center gap-1">
-        <button
-          onClick={handleToggleOpen}
-          className="flex items-center gap-2 bg-white border border-slate-200 rounded-full pl-4 pr-3 py-2 text-sm text-slate-700 font-medium hover:border-slate-400 transition-colors focus:outline-none"
-        >
-          <span>{buildLabel(selected)}</span>
-          {open ? (
-            <ChevronUp size={14} className="text-slate-400 flex-shrink-0" />
-          ) : (
-            <ChevronDown size={14} className="text-slate-400 flex-shrink-0" />
-          )}
-        </button>
-        <button className="w-7 h-7 flex items-center justify-center bg-white border border-slate-200 rounded-full hover:border-slate-400 transition-colors text-slate-500">
-          <Plus size={14} />
-        </button>
-      </div>
+      <button
+        onClick={handleToggleOpen}
+        className="flex items-center gap-2 bg-white border border-slate-200 rounded-full pl-4 pr-3 py-2 text-sm text-slate-700 font-medium hover:border-slate-400 transition-colors focus:outline-none"
+      >
+        <span>{buildLabel(selected)}</span>
+        {open ? (
+          <ChevronUp size={14} className="text-slate-400 flex-shrink-0" />
+        ) : (
+          <ChevronDown size={14} className="text-slate-400 flex-shrink-0" />
+        )}
+      </button>
 
       {open && (
         <div className="absolute top-full left-0 mt-2 z-50 bg-white border border-slate-200 rounded-xl shadow-xl w-[440px]">

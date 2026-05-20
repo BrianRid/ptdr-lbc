@@ -1,18 +1,24 @@
 "use client";
-import { Calendar, ChevronDown } from "lucide-react";
+import { useState } from "react";
+import { Calendar, ChevronDown, Plus, SlidersHorizontal } from "lucide-react";
 import { CATEGORIES, DATE_RANGES } from "@/data/mockData";
 import GeoFilter from "@/components/GeoFilter";
+import AdParamsModal from "@/components/AdParamsModal";
 
 interface Props {
   dateRange: string;
   category: string;
   selectedDepts: string[];
+  selectedAdParams: string[];
   onDateChange: (v: string) => void;
   onCategoryChange: (v: string) => void;
   onDeptsChange: (depts: string[]) => void;
+  onAdParamsChange: (ids: string[]) => void;
 }
 
-export default function FilterBar({ dateRange, category, selectedDepts, onDateChange, onCategoryChange, onDeptsChange }: Props) {
+export default function FilterBar({ dateRange, category, selectedDepts, selectedAdParams, onDateChange, onCategoryChange, onDeptsChange, onAdParamsChange }: Props) {
+  const [modalOpen, setModalOpen] = useState(false);
+
   return (
     <div className="flex items-center gap-3 flex-wrap">
       <div className="relative">
@@ -46,6 +52,24 @@ export default function FilterBar({ dateRange, category, selectedDepts, onDateCh
       </div>
 
       <GeoFilter selected={selectedDepts} onChange={onDeptsChange} />
+
+      <button
+        onClick={() => setModalOpen(true)}
+        className="flex items-center gap-2 bg-white border border-slate-200 rounded-full pl-3 pr-4 py-2 text-sm font-medium hover:border-[#3b5bdb] hover:text-[#3b5bdb] transition-colors focus:outline-none group"
+      >
+        <Plus size={14} className="text-slate-400 group-hover:text-[#3b5bdb] transition-colors" />
+        <span className="text-slate-600 group-hover:text-[#3b5bdb]">
+          {selectedAdParams.length > 0 ? `Adparams (${selectedAdParams.length})` : "Adparams"}
+        </span>
+      </button>
+
+      {modalOpen && (
+        <AdParamsModal
+          selected={selectedAdParams}
+          onClose={() => setModalOpen(false)}
+          onChange={onAdParamsChange}
+        />
+      )}
     </div>
   );
 }
