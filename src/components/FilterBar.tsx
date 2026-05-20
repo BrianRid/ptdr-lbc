@@ -1,7 +1,8 @@
 "use client";
 import { useState } from "react";
-import { Calendar, ChevronDown, Plus, SlidersHorizontal } from "lucide-react";
+import { Calendar, ChevronDown, Plus } from "lucide-react";
 import { CATEGORIES, DATE_RANGES } from "@/data/mockData";
+import { AdParamFilters } from "@/data/adparams";
 import GeoFilter from "@/components/GeoFilter";
 import AdParamsModal from "@/components/AdParamsModal";
 
@@ -9,15 +10,20 @@ interface Props {
   dateRange: string;
   category: string;
   selectedDepts: string[];
-  selectedAdParams: string[];
+  adParamFilters: AdParamFilters;
   onDateChange: (v: string) => void;
   onCategoryChange: (v: string) => void;
   onDeptsChange: (depts: string[]) => void;
-  onAdParamsChange: (ids: string[]) => void;
+  onAdParamFiltersChange: (f: AdParamFilters) => void;
 }
 
-export default function FilterBar({ dateRange, category, selectedDepts, selectedAdParams, onDateChange, onCategoryChange, onDeptsChange, onAdParamsChange }: Props) {
+export default function FilterBar({
+  dateRange, category, selectedDepts, adParamFilters,
+  onDateChange, onCategoryChange, onDeptsChange, onAdParamFiltersChange,
+}: Props) {
   const [modalOpen, setModalOpen] = useState(false);
+
+  const activeCount = Object.values(adParamFilters).reduce((sum, v) => sum + v.length, 0);
 
   return (
     <div className="flex items-center gap-3 flex-wrap">
@@ -55,19 +61,21 @@ export default function FilterBar({ dateRange, category, selectedDepts, selected
 
       <button
         onClick={() => setModalOpen(true)}
-        className="flex items-center gap-2 bg-white border border-slate-200 rounded-full pl-3 pr-4 py-2 text-sm font-medium hover:border-[#3b5bdb] hover:text-[#3b5bdb] transition-colors focus:outline-none group"
+        className={`flex items-center gap-2 rounded-full pl-3 pr-4 py-2 text-sm font-medium border transition-colors focus:outline-none group ${
+          activeCount > 0
+            ? "bg-[#3b5bdb]/10 border-[#3b5bdb] text-[#3b5bdb]"
+            : "bg-white border-slate-200 text-slate-600 hover:border-[#3b5bdb] hover:text-[#3b5bdb]"
+        }`}
       >
-        <Plus size={14} className="text-slate-400 group-hover:text-[#3b5bdb] transition-colors" />
-        <span className="text-slate-600 group-hover:text-[#3b5bdb]">
-          {selectedAdParams.length > 0 ? `Adparams (${selectedAdParams.length})` : "Adparams"}
-        </span>
+        <Plus size={14} className={activeCount > 0 ? "text-[#3b5bdb]" : "text-slate-400 group-hover:text-[#3b5bdb] transition-colors"} />
+        {activeCount > 0 ? `Adparams (${activeCount})` : "Adparams"}
       </button>
 
       {modalOpen && (
         <AdParamsModal
-          selected={selectedAdParams}
+          filters={adParamFilters}
           onClose={() => setModalOpen(false)}
-          onChange={onAdParamsChange}
+          onChange={onAdParamFiltersChange}
         />
       )}
     </div>

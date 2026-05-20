@@ -1,59 +1,166 @@
-export interface AdParam {
+export interface AdParamOption {
+  value: string;
+  label: string;
+}
+
+export interface AdParamDef {
   id: string;
   category: string;
   label: string;
   required: boolean;
+  options: AdParamOption[];
 }
 
-export const AD_PARAMS: AdParam[] = [
+export const AD_PARAM_DEFS: AdParamDef[] = [
   // IMMOBILIER
-  { id: "immo_charges", category: "IMMOBILIER", label: "Charges locatives", required: true },
-  { id: "immo_surface_hab", category: "IMMOBILIER", label: "Surface habitable", required: true },
-  { id: "immo_chambres", category: "IMMOBILIER", label: "Nombre de chambres", required: true },
-  { id: "immo_classe_energie", category: "IMMOBILIER", label: "Classe énergie", required: true },
-  { id: "immo_ges", category: "IMMOBILIER", label: "GES", required: true },
-  { id: "immo_encadrement", category: "IMMOBILIER", label: "Votre bien est-il en zone soumise à l'encadrement des loyers ?", required: true },
-  { id: "immo_type_bien", category: "IMMOBILIER", label: "Choisissez votre type de bien", required: true },
-  { id: "immo_loyer_ref", category: "IMMOBILIER", label: "Loyer de référence majoré", required: true },
-  { id: "immo_pieces", category: "IMMOBILIER", label: "Nombre de pièces", required: true },
-  { id: "immo_surface_terrain", category: "IMMOBILIER", label: "Surface totale du terrain", required: true },
-  { id: "immo_etage", category: "IMMOBILIER", label: "Étage", required: false },
-  { id: "immo_ascenseur", category: "IMMOBILIER", label: "Ascenseur", required: false },
-  { id: "immo_parking", category: "IMMOBILIER", label: "Parking / Garage", required: false },
-  { id: "immo_meuble", category: "IMMOBILIER", label: "Meublé", required: false },
+  {
+    id: "nb_pieces",
+    category: "IMMOBILIER",
+    label: "Nombre de pièces",
+    required: true,
+    options: [
+      { value: "1", label: "T1 / Studio" },
+      { value: "2", label: "T2" },
+      { value: "3", label: "T3" },
+      { value: "4", label: "T4" },
+      { value: "5", label: "T5 et +" },
+    ],
+  },
+  {
+    id: "type_bien",
+    category: "IMMOBILIER",
+    label: "Type de bien",
+    required: true,
+    options: [
+      { value: "appartement", label: "Appartement" },
+      { value: "maison", label: "Maison" },
+      { value: "studio", label: "Studio" },
+      { value: "terrain", label: "Terrain" },
+      { value: "parking", label: "Parking / Box" },
+      { value: "local", label: "Local commercial" },
+    ],
+  },
+  {
+    id: "classe_energie",
+    category: "IMMOBILIER",
+    label: "Classe énergie",
+    required: true,
+    options: ["A", "B", "C", "D", "E", "F", "G"].map((v) => ({ value: v, label: `Classe ${v}` })),
+  },
+  {
+    id: "meuble",
+    category: "IMMOBILIER",
+    label: "Meublé",
+    required: false,
+    options: [
+      { value: "oui", label: "Meublé" },
+      { value: "non", label: "Non meublé" },
+    ],
+  },
+  {
+    id: "transaction",
+    category: "IMMOBILIER",
+    label: "Type de transaction",
+    required: true,
+    options: [
+      { value: "vente", label: "Vente" },
+      { value: "location", label: "Location" },
+      { value: "location_saisonniere", label: "Location saisonnière" },
+    ],
+  },
 
   // VÉHICULES
-  { id: "veh_kilometrage", category: "VÉHICULES", label: "Kilométrage", required: true },
-  { id: "veh_annee", category: "VÉHICULES", label: "Année modèle", required: true },
-  { id: "veh_marque", category: "VÉHICULES", label: "Marque", required: true },
-  { id: "veh_modele", category: "VÉHICULES", label: "Modèle", required: true },
-  { id: "veh_energie", category: "VÉHICULES", label: "Énergie", required: true },
-  { id: "veh_boite", category: "VÉHICULES", label: "Boîte de vitesse", required: true },
-  { id: "veh_immat", category: "VÉHICULES", label: "Numéro d'immatriculation", required: true },
-  { id: "veh_quantite", category: "VÉHICULES", label: "Quantité", required: true },
-  { id: "veh_couleur", category: "VÉHICULES", label: "Couleur", required: false },
-  { id: "veh_nb_portes", category: "VÉHICULES", label: "Nombre de portes", required: false },
-  { id: "veh_puissance", category: "VÉHICULES", label: "Puissance fiscale", required: false },
+  {
+    id: "energie",
+    category: "VÉHICULES",
+    label: "Énergie",
+    required: true,
+    options: [
+      { value: "essence", label: "Essence" },
+      { value: "diesel", label: "Diesel" },
+      { value: "electrique", label: "Électrique" },
+      { value: "hybride", label: "Hybride" },
+      { value: "hybride_rechargeable", label: "Hybride rechargeable" },
+      { value: "gpl", label: "GPL" },
+    ],
+  },
+  {
+    id: "boite_vitesse",
+    category: "VÉHICULES",
+    label: "Boîte de vitesse",
+    required: true,
+    options: [
+      { value: "manuelle", label: "Manuelle" },
+      { value: "automatique", label: "Automatique" },
+    ],
+  },
+  {
+    id: "marque",
+    category: "VÉHICULES",
+    label: "Marque",
+    required: true,
+    options: [
+      { value: "renault", label: "Renault" },
+      { value: "peugeot", label: "Peugeot" },
+      { value: "citroen", label: "Citroën" },
+      { value: "bmw", label: "BMW" },
+      { value: "mercedes", label: "Mercedes" },
+      { value: "toyota", label: "Toyota" },
+      { value: "volkswagen", label: "Volkswagen" },
+      { value: "ford", label: "Ford" },
+      { value: "tesla", label: "Tesla" },
+    ],
+  },
+  {
+    id: "annee_modele",
+    category: "VÉHICULES",
+    label: "Année modèle",
+    required: true,
+    options: ["2019", "2020", "2021", "2022", "2023", "2024"].map((v) => ({ value: v, label: v })),
+  },
 
   // EMPLOI
-  { id: "emp_contrat", category: "EMPLOI", label: "Type de contrat", required: true },
-  { id: "emp_experience", category: "EMPLOI", label: "Expérience requise", required: true },
-  { id: "emp_salaire", category: "EMPLOI", label: "Salaire", required: false },
-  { id: "emp_teletravail", category: "EMPLOI", label: "Télétravail", required: false },
-  { id: "emp_secteur", category: "EMPLOI", label: "Secteur d'activité", required: true },
-  { id: "emp_poste", category: "EMPLOI", label: "Intitulé du poste", required: true },
-
-  // SERVICES
-  { id: "svc_type", category: "SERVICES", label: "Type de prestation", required: true },
-  { id: "svc_deplacement", category: "SERVICES", label: "Déplacement possible", required: false },
-  { id: "svc_disponibilite", category: "SERVICES", label: "Disponibilité", required: false },
-  { id: "svc_tarif", category: "SERVICES", label: "Tarif horaire", required: false },
-
-  // MULTIMÉDIA
-  { id: "multi_etat", category: "MULTIMÉDIA", label: "État de l'article", required: true },
-  { id: "multi_marque", category: "MULTIMÉDIA", label: "Marque", required: true },
-  { id: "multi_modele", category: "MULTIMÉDIA", label: "Modèle", required: false },
-  { id: "multi_capacite", category: "MULTIMÉDIA", label: "Capacité de stockage", required: false },
+  {
+    id: "type_contrat",
+    category: "EMPLOI",
+    label: "Type de contrat",
+    required: true,
+    options: [
+      { value: "cdi", label: "CDI" },
+      { value: "cdd", label: "CDD" },
+      { value: "freelance", label: "Freelance" },
+      { value: "interim", label: "Intérim" },
+      { value: "stage", label: "Stage" },
+      { value: "alternance", label: "Alternance" },
+    ],
+  },
+  {
+    id: "secteur",
+    category: "EMPLOI",
+    label: "Secteur d'activité",
+    required: true,
+    options: [
+      { value: "tech", label: "Tech & Digital" },
+      { value: "commerce", label: "Commerce & Vente" },
+      { value: "btp", label: "BTP & Construction" },
+      { value: "sante", label: "Santé" },
+      { value: "education", label: "Éducation" },
+      { value: "finance", label: "Finance & Banque" },
+    ],
+  },
+  {
+    id: "teletravail",
+    category: "EMPLOI",
+    label: "Télétravail",
+    required: false,
+    options: [
+      { value: "oui", label: "Full remote" },
+      { value: "partiel", label: "Hybride" },
+      { value: "non", label: "Présentiel" },
+    ],
+  },
 ];
 
-export const AD_PARAM_CATEGORIES = [...new Set(AD_PARAMS.map((p) => p.category))];
+export const AD_PARAM_CATEGORIES = [...new Set(AD_PARAM_DEFS.map((p) => p.category))];
+
+export type AdParamFilters = Record<string, string[]>;
