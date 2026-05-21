@@ -47,19 +47,6 @@ export const LISTINGS: Listing[] = [
   { id: "veh_14", title: "Citroën ë-C4 2023", category: "VÉHICULES", weight: 0.07, params: { energie: "electrique", boite_vitesse: "automatique", marque: "citroen", annee_modele: "2023" } },
   { id: "veh_15", title: "BMW i4 2024", category: "VÉHICULES", weight: 0.08, params: { energie: "electrique", boite_vitesse: "automatique", marque: "bmw", annee_modele: "2024" } },
 
-  // ── EMPLOI ──────────────────────────────────────────────────────────────────
-  { id: "emp_01", title: "Dev Full Stack React/Node", category: "EMPLOI", weight: 0.10, params: { type_contrat: "cdi", secteur: "tech", teletravail: "oui" } },
-  { id: "emp_02", title: "Commercial terrain B2B", category: "EMPLOI", weight: 0.08, params: { type_contrat: "cdi", secteur: "commerce", teletravail: "non" } },
-  { id: "emp_03", title: "Chef de chantier BTP", category: "EMPLOI", weight: 0.07, params: { type_contrat: "cdi", secteur: "btp", teletravail: "non" } },
-  { id: "emp_04", title: "Infirmier(e) CDI", category: "EMPLOI", weight: 0.09, params: { type_contrat: "cdi", secteur: "sante", teletravail: "non" } },
-  { id: "emp_05", title: "Stage Data Analyst 6 mois", category: "EMPLOI", weight: 0.06, params: { type_contrat: "stage", secteur: "tech", teletravail: "partiel" } },
-  { id: "emp_06", title: "Alternance Marketing Digital", category: "EMPLOI", weight: 0.07, params: { type_contrat: "alternance", secteur: "commerce", teletravail: "partiel" } },
-  { id: "emp_07", title: "Freelance UX Designer", category: "EMPLOI", weight: 0.08, params: { type_contrat: "freelance", secteur: "tech", teletravail: "oui" } },
-  { id: "emp_08", title: "Comptable CDD 6 mois", category: "EMPLOI", weight: 0.06, params: { type_contrat: "cdd", secteur: "finance", teletravail: "partiel" } },
-  { id: "emp_09", title: "Professeur Mathématiques", category: "EMPLOI", weight: 0.07, params: { type_contrat: "cdi", secteur: "education", teletravail: "non" } },
-  { id: "emp_10", title: "Dev Mobile React Native", category: "EMPLOI", weight: 0.09, params: { type_contrat: "cdi", secteur: "tech", teletravail: "oui" } },
-  { id: "emp_11", title: "Électricien intérim", category: "EMPLOI", weight: 0.05, params: { type_contrat: "interim", secteur: "btp", teletravail: "non" } },
-  { id: "emp_12", title: "Analyste financier CDI", category: "EMPLOI", weight: 0.08, params: { type_contrat: "cdi", secteur: "finance", teletravail: "partiel" } },
 ];
 
 /**

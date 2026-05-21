@@ -119,46 +119,6 @@ export const AD_PARAM_DEFS: AdParamDef[] = [
     options: ["2019", "2020", "2021", "2022", "2023", "2024"].map((v) => ({ value: v, label: v })),
   },
 
-  // EMPLOI
-  {
-    id: "type_contrat",
-    category: "EMPLOI",
-    label: "Type de contrat",
-    required: true,
-    options: [
-      { value: "cdi", label: "CDI" },
-      { value: "cdd", label: "CDD" },
-      { value: "freelance", label: "Freelance" },
-      { value: "interim", label: "Intérim" },
-      { value: "stage", label: "Stage" },
-      { value: "alternance", label: "Alternance" },
-    ],
-  },
-  {
-    id: "secteur",
-    category: "EMPLOI",
-    label: "Secteur d'activité",
-    required: true,
-    options: [
-      { value: "tech", label: "Tech & Digital" },
-      { value: "commerce", label: "Commerce & Vente" },
-      { value: "btp", label: "BTP & Construction" },
-      { value: "sante", label: "Santé" },
-      { value: "education", label: "Éducation" },
-      { value: "finance", label: "Finance & Banque" },
-    ],
-  },
-  {
-    id: "teletravail",
-    category: "EMPLOI",
-    label: "Télétravail",
-    required: false,
-    options: [
-      { value: "oui", label: "Full remote" },
-      { value: "partiel", label: "Hybride" },
-      { value: "non", label: "Présentiel" },
-    ],
-  },
 ];
 
 export const AD_PARAM_CATEGORIES = [...new Set(AD_PARAM_DEFS.map((p) => p.category))];
