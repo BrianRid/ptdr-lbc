@@ -163,11 +163,10 @@ export const REGIONS: Record<string, { name: string; departments: { code: string
 };
 
 export const CATEGORIES = [
-  { value: "all", label: "Tout immobilier" },
-  { value: "residential", label: "Résidentiel" },
-  { value: "commercial", label: "Commercial" },
-  { value: "terrain", label: "Terrain" },
-  { value: "location", label: "Location" },
+  { value: "all", label: "Tous véhicules" },
+  { value: "voitures", label: "Voitures" },
+  { value: "utilitaires", label: "Utilitaires" },
+  { value: "motos", label: "Motos & scooters" },
 ];
 
 export const DATE_RANGES = [
@@ -230,31 +229,27 @@ const today = new Date(2026, 4, 20); // May 20 2026
 export const MOCK_DATA: Record<string, Record<string, DailyData[]>> = {
   current_week: {
     all: generateDailyData(7, today),
-    residential: generateDailyData(7, today),
-    commercial: generateDailyData(7, today),
-    terrain: generateDailyData(7, today),
-    location: generateDailyData(7, today),
+    voitures: generateDailyData(7, today),
+    utilitaires: generateDailyData(7, today),
+    motos: generateDailyData(7, today),
   },
   last_30: {
     all: generateDailyData(30, today),
-    residential: generateDailyData(30, today),
-    commercial: generateDailyData(30, today),
-    terrain: generateDailyData(30, today),
-    location: generateDailyData(30, today),
+    voitures: generateDailyData(30, today),
+    utilitaires: generateDailyData(30, today),
+    motos: generateDailyData(30, today),
   },
   current_month: {
     all: generateDailyData(20, today),
-    residential: generateDailyData(20, today),
-    commercial: generateDailyData(20, today),
-    terrain: generateDailyData(20, today),
-    location: generateDailyData(20, today),
+    voitures: generateDailyData(20, today),
+    utilitaires: generateDailyData(20, today),
+    motos: generateDailyData(20, today),
   },
   quarter: {
     all: generateDailyData(90, today),
-    residential: generateDailyData(90, today),
-    commercial: generateDailyData(90, today),
-    terrain: generateDailyData(90, today),
-    location: generateDailyData(90, today),
+    voitures: generateDailyData(90, today),
+    utilitaires: generateDailyData(90, today),
+    motos: generateDailyData(90, today),
   },
 };
 

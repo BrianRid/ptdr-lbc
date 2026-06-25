@@ -92,13 +92,13 @@ export default function AdParamsModal({ filters, onClose, onChange }: Props) {
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm"
       onMouseDown={(e) => { if (e.target === overlayRef.current) onClose(); }}
     >
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl mx-4 flex flex-col max-h-[88vh]">
+      <div className="bg-surface rounded-card shadow-2xl w-full max-w-2xl mx-4 flex flex-col max-h-[88vh]">
 
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-slate-100">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-border-base">
           <div>
-            <h2 className="text-base font-semibold text-slate-800">Filtrer par paramètres d'annonce</h2>
-            <p className="text-sm text-slate-400 mt-0.5">
+            <h2 className="text-base font-semibold text-ink">Filtrer par paramètres d'annonce</h2>
+            <p className="text-sm text-ink-muted mt-0.5">
               {activeCount === 0
                 ? "Sélectionnez des valeurs pour affiner les performances"
                 : `${activeCount} valeur${activeCount > 1 ? "s" : ""} active${activeCount > 1 ? "s" : ""}`}
@@ -106,7 +106,7 @@ export default function AdParamsModal({ filters, onClose, onChange }: Props) {
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 flex items-center justify-center rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+            className="w-8 h-8 flex items-center justify-center rounded-full text-ink-muted hover:text-ink-secondary hover:bg-app transition-colors"
           >
             <X size={18} />
           </button>
@@ -114,17 +114,17 @@ export default function AdParamsModal({ filters, onClose, onChange }: Props) {
 
         {/* Active chips */}
         {activeChips.length > 0 && (
-          <div className="px-6 py-3 border-b border-slate-100 flex flex-wrap gap-2">
+          <div className="px-6 py-3 border-b border-border-base flex flex-wrap gap-2">
             {activeChips.map((chip) => (
               <span
                 key={`${chip.paramId}-${chip.value}`}
-                className="flex items-center gap-1.5 text-xs font-medium bg-[#3b5bdb]/10 text-[#3b5bdb] rounded-full pl-3 pr-2 py-1"
+                className="flex items-center gap-1.5 text-xs font-medium bg-primary/10 text-primary rounded-full pl-3 pr-2 py-1"
               >
-                <span className="text-[#3b5bdb]/60">{chip.paramLabel} :</span>
+                <span className="text-primary/60">{chip.paramLabel} :</span>
                 {chip.valueLabel}
                 <button
                   onClick={() => toggleValue(chip.paramId, chip.value)}
-                  className="ml-0.5 hover:text-[#3b5bdb] opacity-60 hover:opacity-100"
+                  className="ml-0.5 hover:text-primary opacity-60 hover:opacity-100"
                 >
                   <X size={12} />
                 </button>
@@ -134,15 +134,15 @@ export default function AdParamsModal({ filters, onClose, onChange }: Props) {
         )}
 
         {/* Search */}
-        <div className="px-6 py-3 border-b border-slate-100">
+        <div className="px-6 py-3 border-b border-border-base">
           <div className="relative">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-muted pointer-events-none" />
             <input
               type="text"
               placeholder="Rechercher un paramètre ou une valeur…"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3b5bdb]/20 focus:border-[#3b5bdb] placeholder-slate-400"
+              className="w-full pl-9 pr-4 py-2 text-sm border border-border-input rounded-field focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary placeholder-ink-muted"
               autoFocus
             />
           </div>
@@ -151,7 +151,7 @@ export default function AdParamsModal({ filters, onClose, onChange }: Props) {
         {/* Param list */}
         <div className="overflow-y-auto flex-1 py-2">
           {filteredCategories.length === 0 && (
-            <p className="text-sm text-slate-400 text-center py-10">
+            <p className="text-sm text-ink-muted text-center py-10">
               Aucun résultat pour « {search} »
             </p>
           )}
@@ -165,22 +165,22 @@ export default function AdParamsModal({ filters, onClose, onChange }: Props) {
             );
 
             return (
-              <div key={category} className="border-b border-slate-50 last:border-0">
+              <div key={category} className="border-b border-border-base/50 last:border-0">
                 {/* Category header */}
                 <button
                   onClick={() => toggleCategory(category)}
-                  className="w-full flex items-center justify-between px-6 py-3 hover:bg-slate-50 transition-colors text-left"
+                  className="w-full flex items-center justify-between px-6 py-3 hover:bg-app transition-colors text-left"
                 >
                   <div className="flex items-center gap-2">
                     {isOpen
-                      ? <ChevronDown size={14} className="text-slate-400" />
-                      : <ChevronRight size={14} className="text-slate-400" />
+                      ? <ChevronDown size={14} className="text-ink-muted" />
+                      : <ChevronRight size={14} className="text-ink-muted" />
                     }
-                    <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                    <span className="text-xs font-bold text-ink-secondary uppercase tracking-wider">
                       {category}
                     </span>
                     {categoryActiveCount > 0 && (
-                      <span className="text-xs font-semibold text-white bg-[#3b5bdb] rounded-full px-2 py-0.5 leading-none">
+                      <span className="text-xs font-semibold text-white bg-primary rounded-full px-2 py-0.5 leading-none">
                         {categoryActiveCount}
                       </span>
                     )}
@@ -195,9 +195,9 @@ export default function AdParamsModal({ filters, onClose, onChange }: Props) {
                       return (
                         <div key={param.id} className="px-6 py-2">
                           <div className="flex items-center gap-2 mb-2">
-                            <p className="text-sm font-medium text-slate-700">{param.label}</p>
+                            <p className="text-sm font-medium text-ink">{param.label}</p>
                             {param.required && (
-                              <span className="text-xs text-orange-500 bg-orange-50 border border-orange-200 rounded-full px-2 py-0.5 leading-none">
+                              <span className="text-xs text-accent-orange bg-accent-orange/10 border border-accent-orange/30 rounded-full px-2 py-0.5 leading-none">
                                 Requis
                               </span>
                             )}
@@ -211,8 +211,8 @@ export default function AdParamsModal({ filters, onClose, onChange }: Props) {
                                   onClick={() => toggleValue(param.id, opt.value)}
                                   className={`text-sm px-3 py-1.5 rounded-full border font-medium transition-all ${
                                     active
-                                      ? "bg-[#3b5bdb] text-white border-[#3b5bdb] shadow-sm"
-                                      : "bg-white text-slate-600 border-slate-200 hover:border-[#3b5bdb] hover:text-[#3b5bdb]"
+                                      ? "bg-primary text-white border-primary shadow-sm"
+                                      : "bg-surface text-ink-secondary border-border-input hover:border-primary hover:text-primary"
                                   }`}
                                 >
                                   {opt.label}
@@ -231,24 +231,24 @@ export default function AdParamsModal({ filters, onClose, onChange }: Props) {
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between px-6 py-4 border-t border-slate-100">
+        <div className="flex items-center justify-between px-6 py-4 border-t border-border-base">
           <button
             onClick={reset}
             disabled={activeCount === 0}
-            className="text-sm text-slate-500 hover:text-slate-700 transition-colors disabled:opacity-30 disabled:cursor-not-allowed underline underline-offset-2"
+            className="text-sm text-ink-secondary hover:text-ink transition-colors disabled:opacity-30 disabled:cursor-not-allowed underline underline-offset-2"
           >
             Réinitialiser
           </button>
           <div className="flex gap-3">
             <button
               onClick={onClose}
-              className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-800 rounded-lg hover:bg-slate-50 transition-colors"
+              className="px-4 py-2 text-sm font-medium text-ink-secondary hover:text-ink rounded-full hover:bg-app transition-colors"
             >
               Annuler
             </button>
             <button
               onClick={apply}
-              className="px-5 py-2 text-sm font-semibold text-white bg-[#3b5bdb] rounded-lg hover:bg-[#3451c7] transition-colors"
+              className="px-5 py-2 text-sm font-semibold text-white bg-primary rounded-full hover:bg-primary-strong transition-colors"
             >
               Appliquer{activeCount > 0 ? ` (${activeCount})` : ""}
             </button>
