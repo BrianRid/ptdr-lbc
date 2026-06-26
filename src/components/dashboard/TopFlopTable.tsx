@@ -9,6 +9,8 @@ import {
   AFFILIATES, Affiliate, affiliateRegions, statusOf, cplScore, StatusTone,
 } from "@/data/affiliates";
 import { TONE, InfoHint, scoreTone, leadCostTone } from "./ui";
+import CostRevenueBubble from "./CostRevenueBubble";
+import AssistantBar from "./AssistantBar";
 
 const STATUS_CLS: Record<StatusTone, string> = {
   green: "text-potential-high bg-potential-high/15",
@@ -142,9 +144,12 @@ function RowDetail({ a }: { a: Affiliate }) {
           >
             Voir les annonces
           </Link>
-          <button className="inline-flex items-center px-4 py-2 t-label-md font-semibold text-ink bg-surface border border-border-input rounded-full hover:border-ink-muted transition-colors">
-            Contacter la filiale
-          </button>
+          <Link
+            href={`/filiale/${a.id}`}
+            className="inline-flex items-center px-4 py-2 t-label-md font-semibold text-ink bg-surface border border-border-input rounded-full hover:border-ink-muted transition-colors"
+          >
+            Détail de ma filiale
+          </Link>
         </div>
       </div>
     </div>
@@ -250,10 +255,20 @@ export default function TopFlopTable() {
         </div>
       </header>
 
+      {/* Assistant IA */}
+      <div className="mb-6">
+        <AssistantBar />
+      </div>
+
       {/* Top 3 / Flop 3 */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
         <HighlightCard variant="top" items={top3} />
         <HighlightCard variant="flop" items={flop3} />
+      </div>
+
+      {/* Cartographie coût / revenu */}
+      <div className="mb-6">
+        <CostRevenueBubble />
       </div>
 
       {/* Toutes les filiales */}

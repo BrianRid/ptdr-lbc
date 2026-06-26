@@ -3,9 +3,8 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import AppShell from "@/components/AppShell";
-import NetworkDashboard from "@/components/NetworkDashboard";
+import FilialeDashboard from "@/components/dashboard/FilialeDashboard";
 import { getAffiliate } from "@/data/affiliates";
-import { getFilialeDashboard } from "@/data/dashboardData";
 
 export default function FilialePage() {
   const { id } = useParams<{ id: string }>();
@@ -20,11 +19,11 @@ export default function FilialePage() {
             Cet établissement n&apos;existe pas ou n&apos;est plus rattaché à votre réseau.
           </p>
           <Link
-            href="/"
+            href="/top-flop"
             className="inline-flex items-center gap-2 mt-6 px-5 py-2.5 t-label-md font-semibold text-white bg-primary rounded-full hover:bg-primary-strong transition-colors"
           >
             <ArrowLeft size={16} />
-            Retour à l&apos;accueil
+            Liste de mes filiales
           </Link>
         </div>
       </AppShell>
@@ -33,11 +32,7 @@ export default function FilialePage() {
 
   return (
     <AppShell>
-      <NetworkDashboard
-        title={affiliate.name}
-        subtitle={`${affiliate.city} (${affiliate.postalCode}) · ${affiliate.adsCount} annonces en ligne`}
-        data={getFilialeDashboard(affiliate.id)}
-      />
+      <FilialeDashboard affiliate={affiliate} />
     </AppShell>
   );
 }
