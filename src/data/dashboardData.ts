@@ -1,4 +1,4 @@
-import { AffiliateMetric } from "./affiliates";
+import { AffiliateMetric, Affiliate } from "./affiliates";
 
 export type Tone = "blue" | "green" | "amber" | "gray" | "red";
 export type TrendDir = "up" | "down" | "flat";
@@ -166,6 +166,32 @@ export const AD_SCORES: AdScore[] = [
   { model: "Peugeot 208", year: 2023, km: "12 000 km", filiale: "Bordeaux Berges", ago: "il y a 1j", views: 9, leads: 1, prix: 85, leadsScore: 41, qualite: 38, tone: "gray" },
   { model: "Volkswagen Golf 8", year: 2022, km: "33 000 km", filiale: "Marseille Prado", ago: "il y a 8j", views: 6, leads: 0, prix: 44, leadsScore: 32, qualite: 60, tone: "blue" },
 ];
+
+// ── KPIs propres à une filiale (à partir de ses vraies valeurs) ───────────────
+export function affiliateScoreCards(a: Affiliate): ScoreCard[] {
+  const def = (k: string) => NETWORK_DASHBOARD.scores.find((s) => s.key === k)?.definition ?? "";
+  const h = hashString(a.id);
+  const sTone = (v: number): Tone => (v >= 75 ? "green" : v >= 50 ? "amber" : "red");
+  const trendOf = (delta: number): { trend: string; trendDir: TrendDir } =>
+    delta > 0 ? { trend: `+${delta} pts`, trendDir: "up" }
+      : delta < 0 ? { trend: `${delta} pts`, trendDir: "down" }
+        : { trend: "stable", trendDir: "flat" };
+  const d = (i: number) => ((h >> (i * 3)) % 9) - 4;
+  const cplUp = (h >> 7) % 2 === 0;
+  const cplTone: Tone = a.leadCost <= 2.5 ? "green" : a.leadCost <= 4 ? "amber" : "red";
+
+  return [
+    { key: "roi", label: "ROI filiale", kind: "score", score: a.roi, tone: sTone(a.roi), definition: def("roi"), ...trendOf(a.wow) },
+    { key: "prix", label: "Positionnement prix / ZDC", kind: "score", score: a.prix, tone: sTone(a.prix), definition: def("prix"), ...trendOf(d(1)) },
+    { key: "reactivite", label: "Réactivité leads", kind: "score", score: a.reactivite, tone: sTone(a.reactivite), definition: def("reactivite"), ...trendOf(d(2)) },
+    { key: "qualite", label: "Qualité des annonces", kind: "score", score: a.qualite, tone: sTone(a.qualite), definition: def("qualite"), ...trendOf(d(3)) },
+    {
+      key: "cpl", label: "Coût par lead", kind: "cost", display: `${a.leadCost.toFixed(2).replace(".", ",")} €`, tone: cplTone,
+      trend: `${cplUp ? "+" : "-"}0,${10 + (h % 4) * 10} €`, trendDir: cplUp ? "up" : "down",
+      definition: def("cpl"), footnote: `**${a.leads}** leads générés cette semaine`,
+    },
+  ];
+}
 
 // ── Variante filiale : décale les valeurs réseau de façon déterministe ────────
 function hashString(s: string): number {

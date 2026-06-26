@@ -11,6 +11,14 @@ export const TONE: Record<Tone, { text: string; bar: string; soft: string; dot: 
   red: { text: "text-alert", bar: "bg-alert", soft: "bg-alert/10", dot: "bg-alert" },
 };
 
+/** Classes (texte + fond) pour un badge de statut. */
+export const StatusToneCls: Record<"green" | "amber" | "red" | "blue", string> = {
+  green: "text-potential-high bg-potential-high/15",
+  amber: "text-potential-mid bg-potential-mid/15",
+  red: "text-alert bg-alert/10",
+  blue: "text-primary bg-primary/10",
+};
+
 /** Couleur sémantique d'un score /100 : ≥75 vert, ≥50 ambre, sinon rouge. */
 export function scoreTone(v: number): Tone {
   return v >= 75 ? "green" : v >= 50 ? "amber" : "red";
