@@ -94,18 +94,18 @@ export default function GeoFilter({ selected, onChange }: Props) {
     <div className="relative" ref={containerRef}>
       <button
         onClick={handleToggleOpen}
-        className="flex items-center gap-2 bg-white border border-slate-200 rounded-full pl-4 pr-3 py-2 text-sm text-slate-700 font-medium hover:border-slate-400 transition-colors focus:outline-none"
+        className="flex items-center gap-2 bg-surface border border-border-input rounded-full pl-4 pr-3 py-2 t-label-md text-ink hover:border-ink-muted transition-colors focus:outline-none"
       >
         <span>{buildLabel(selected)}</span>
         {open ? (
-          <ChevronUp size={14} className="text-slate-400 flex-shrink-0" />
+          <ChevronUp size={14} className="text-ink-muted flex-shrink-0" />
         ) : (
-          <ChevronDown size={14} className="text-slate-400 flex-shrink-0" />
+          <ChevronDown size={14} className="text-ink-muted flex-shrink-0" />
         )}
       </button>
 
       {open && (
-        <div className="absolute top-full left-0 mt-2 z-50 bg-white border border-slate-200 rounded-xl shadow-xl w-[440px]">
+        <div className="absolute top-full left-0 mt-2 z-50 bg-surface border border-border-base rounded-card shadow-xl w-[440px]">
           <div className="p-4 max-h-[400px] overflow-y-auto">
             {Object.entries(REGIONS).map(([regionCode, region]) => {
               const state = regionState(regionCode);
@@ -119,9 +119,9 @@ export default function GeoFilter({ selected, onChange }: Props) {
                         if (el) el.indeterminate = state === "some";
                       }}
                       onChange={() => toggleRegion(regionCode)}
-                      className="w-4 h-4 rounded border-slate-300 accent-[#3b5bdb] cursor-pointer"
+                      className="w-4 h-4 rounded border-border-input accent-primary cursor-pointer"
                     />
-                    <span className="text-sm font-semibold text-slate-800">
+                    <span className="t-body-md font-semibold text-ink">
                       {region.name}
                     </span>
                   </label>
@@ -135,9 +135,9 @@ export default function GeoFilter({ selected, onChange }: Props) {
                           type="checkbox"
                           checked={draft.includes(dept.code)}
                           onChange={() => toggleDept(dept.code)}
-                          className="w-4 h-4 rounded border-slate-300 accent-[#3b5bdb] cursor-pointer flex-shrink-0"
+                          className="w-4 h-4 rounded border-border-input accent-primary cursor-pointer flex-shrink-0"
                         />
-                        <span className="text-sm text-slate-600 leading-tight">
+                        <span className="t-body-md text-ink-secondary leading-tight">
                           {dept.code} - {dept.name}
                         </span>
                       </label>
@@ -148,16 +148,16 @@ export default function GeoFilter({ selected, onChange }: Props) {
             })}
           </div>
 
-          <div className="flex justify-end items-center gap-3 px-4 py-3 border-t border-slate-100">
+          <div className="flex justify-end items-center gap-3 px-4 py-3 border-t border-border-base">
             <button
               onClick={cancelSelection}
-              className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-800 transition-colors rounded-lg hover:bg-slate-50"
+              className="px-4 py-2 t-label-md text-ink-secondary hover:text-ink transition-colors rounded-full hover:bg-app"
             >
               Annuler
             </button>
             <button
               onClick={applySelection}
-              className="px-5 py-2 text-sm font-semibold text-white bg-[#3b5bdb] rounded-lg hover:bg-[#3451c7] transition-colors"
+              className="px-5 py-2 t-label-md font-semibold text-white bg-primary rounded-full hover:bg-primary-strong transition-colors"
             >
               Appliquer
             </button>

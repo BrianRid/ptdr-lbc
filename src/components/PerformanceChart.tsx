@@ -9,11 +9,13 @@ interface Props {
 
 type Metric = "messages" | "clics" | "appels" | "favoris";
 
+// Data viz: varying opacities of the primary blue — no hue shifts.
+const PRIMARY = "#4a6fe8";
 const METRICS: { key: Metric; label: string; color: string }[] = [
-  { key: "messages", label: "Messages reçus", color: "#3b5bdb" },
-  { key: "clics", label: "Clics annonces", color: "#0d9488" },
-  { key: "appels", label: "Intentions appel", color: "#f59e0b" },
-  { key: "favoris", label: "Favoris", color: "#ec4899" },
+  { key: "messages", label: "Messages reçus", color: PRIMARY },
+  { key: "clics", label: "Clics annonces", color: "rgba(74,111,232,0.8)" },
+  { key: "appels", label: "Intentions appel", color: "rgba(74,111,232,0.62)" },
+  { key: "favoris", label: "Favoris", color: "rgba(74,111,232,0.45)" },
 ];
 
 export default function PerformanceChart({ data }: Props) {
@@ -26,18 +28,18 @@ export default function PerformanceChart({ data }: Props) {
   }));
 
   return (
-    <div className="bg-white rounded-xl p-6 shadow-sm">
+    <div className="bg-surface rounded-card p-6 shadow-card">
       <div className="flex items-center justify-between mb-6">
-        <p className="text-sm text-slate-500">Afficher les données par :</p>
+        <p className="t-body-md text-ink-secondary">Afficher les données par :</p>
         <div className="flex gap-2 flex-wrap">
           {METRICS.map((m) => (
             <button
               key={m.key}
               onClick={() => setActiveMetric(m.key)}
-              className={`text-xs px-3 py-1.5 rounded-full border font-medium transition-colors ${
+              className={`t-label-md px-3 py-1.5 rounded-full border transition-colors ${
                 activeMetric === m.key
-                  ? "bg-[#3b5bdb] text-white border-[#3b5bdb]"
-                  : "text-slate-500 border-slate-200 hover:border-slate-400"
+                  ? "bg-primary text-white border-primary"
+                  : "text-ink-secondary border-border-input hover:border-primary hover:text-primary"
               }`}
             >
               {m.label}
@@ -48,12 +50,12 @@ export default function PerformanceChart({ data }: Props) {
 
       <ResponsiveContainer width="100%" height={280}>
         <BarChart data={chartData} margin={{ top: 4, right: 8, left: 8, bottom: 4 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
-          <XAxis dataKey="date" tick={{ fontSize: 12, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
-          <YAxis tick={{ fontSize: 12, fill: "#94a3b8" }} axisLine={false} tickLine={false} width={40} />
+          <CartesianGrid strokeDasharray="3 3" stroke="#e2e6ee" vertical={false} />
+          <XAxis dataKey="date" tick={{ fontSize: 12, fill: "#8a91a8" }} axisLine={false} tickLine={false} />
+          <YAxis tick={{ fontSize: 12, fill: "#8a91a8" }} axisLine={false} tickLine={false} width={40} />
           <Tooltip
-            contentStyle={{ borderRadius: 8, border: "none", boxShadow: "0 4px 16px rgba(0,0,0,0.1)", fontSize: 13 }}
-            cursor={{ fill: "#f8fafc" }}
+            contentStyle={{ borderRadius: 12, border: "none", boxShadow: "0 4px 16px rgba(15,27,61,0.1)", fontSize: 13 }}
+            cursor={{ fill: "#eef1f6" }}
           />
           <Legend
             wrapperStyle={{ fontSize: 13, paddingTop: 12 }}
